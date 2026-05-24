@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prakash Reddy | GENERATIVE AI/ML Engineer Portfolio</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #0f172a;
+      color: #e5e7eb;
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+      z-index: 1000;
+    }
+
+    .navbar {
+      max-width: 1100px;
+      margin: auto;
+      padding: 18px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: bold;
+      color: #38bdf8;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: #cbd5e1;
+      font-size: 15px;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: #38bdf8;
+    }
+
+    .menu-btn {
+      display: none;
+      font-size: 26px;
+      cursor: pointer;
+    }
+
+    section {
+      max-width: 1100px;
+      margin: auto;
+      padding: 90px 24px;
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+      padding-top: 120px;
+    }
+
+    .hero-text h1 {
+      font-size: 52px;
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+
+    .hero-text h1 span {
+      color: #38bdf8;
+    }
+
+    .hero-text h2 {
+      font-size: 24px;
+      color: #cbd5e1;
+      margin-bottom: 18px;
+    }
+
+    .hero-text p {
+      max-width: 600px;
+      color: #94a3b8;
+      margin-bottom: 28px;
+      font-size: 17px;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 22px;
+      border-radius: 8px;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .btn-primary {
+      background: #38bdf8;
+      color: #020617;
+    }
+
+    .btn-primary:hover {
+      background: #0ea5e9;
+    }
+
+    .btn-outline {
+      border: 1px solid #38bdf8;
+      color: #38bdf8;
+    }
+
+    .btn-outline:hover {
+      background: #38bdf8;
+      color: #020617;
+    }
+
+    .hero-card {
+      background: linear-gradient(145deg, #1e293b, #020617);
+      padding: 30px;
+      border-radius: 20px;
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+      min-width: 280px;
+    }
+
+    .hero-card h3 {
+      color: #38bdf8;
+      margin-bottom: 18px;
+    }
+
+    .hero-card ul {
+      list-style: none;
+    }
+
+    .hero-card li {
+      margin-bottom: 12px;
+      color: #cbd5e1;
+    }
+
+    .section-title {
+      font-size: 34px;
+      margin-bottom: 20px;
+      color: #f8fafc;
+    }
+
+    .section-subtitle {
+      color: #94a3b8;
+      margin-bottom: 40px;
+      max-width: 700px;
+    }
+
+    .about-grid,
+    .project-grid,
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 22px;
+    }
+
+    .card {
+      background: #1e293b;
+      padding: 24px;
+      border-radius: 16px;
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      transition: transform 0.3s, border-color 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      border-color: #38bdf8;
+    }
+
+    .card h3 {
+      color: #38bdf8;
+      margin-bottom: 12px;
+    }
+
+    .card p,
+    .card li {
+      color: #cbd5e1;
+      font-size: 15px;
+    }
+
+    .skills-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .skill-tag {
+      background: rgba(56, 189, 248, 0.12);
+      color: #7dd3fc;
+      padding: 7px 12px;
+      border-radius: 999px;
+      font-size: 14px;
+    }
+
+    .timeline {
+      border-left: 2px solid #38bdf8;
+      padding-left: 24px;
+    }
+
+    .timeline-item {
+      margin-bottom: 28px;
+      background: #1e293b;
+      padding: 22px;
+      border-radius: 14px;
+      border: 1px solid rgba(148, 163, 184, 0.18);
+    }
+
+    .timeline-item h3 {
+      color: #38bdf8;
+    }
+
+    .timeline-item span {
+      color: #94a3b8;
+      font-size: 14px;
+    }
+
+    .contact-box {
+      background: linear-gradient(145deg, #1e293b, #020617);
+      padding: 34px;
+      border-radius: 18px;
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      text-align: center;
+    }
+
+    .contact-box p {
+      color: #cbd5e1;
+      margin-bottom: 20px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 28px;
+      color: #94a3b8;
+      border-top: 1px solid rgba(148, 163, 184, 0.2);
+    }
+
+    @media (max-width: 768px) {
+      .menu-btn {
+        display: block;
+      }
+
+      .nav-links {
+        position: absolute;
+        top: 70px;
+        right: 24px;
+        background: #1e293b;
+        flex-direction: column;
+        width: 220px;
+        padding: 20px;
+        border-radius: 12px;
+        display: none;
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .hero {
+        flex-direction: column;
+        text-align: left;
+      }
+
+      .hero-text h1 {
+        font-size: 40px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="navbar">
+      <div class="logo">Prakash Reddy</div>
+      <div class="menu-btn" id="menuBtn">☰</div>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="hero" id="home">
+    <div class="hero-text">
+      <h1>Hi, I'm <span>Prakash Reddy</span></h1>
+      <h2>Senior GenAI / AI-ML Engineer</h2>
+      <p>
+        I build production-ready AI systems, RAG applications, LLM workflows, data pipelines,
+        and cloud-based machine learning solutions that turn complex business problems into scalable products.
+      </p>
+      <div class="buttons">
+        <a href="#projects" class="btn btn-primary">View Projects</a>
+        <a href="https://www.linkedin.com/in/prakashreddydev/" target="_blank" class="btn btn-outline">LinkedIn</a>
+        <a href="https://github.com/Hello-world-Prakash" target="_blank" class="btn btn-outline">GitHub</a>
+      </div>
+    </div>
+
+    <div class="hero-card">
+      <h3>Core Focus</h3>
+      <ul>
+        <li>✅ Generative AI & LLMs</li>
+        <li>✅ RAG & Vector Search</li>
+        <li>✅ Python & FastAPI</li>
+        <li>✅ Cloud AI Solutions</li>
+        <li>✅ Data Engineering</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="about">
+    <h2 class="section-title">About Me</h2>
+    <p class="section-subtitle">
+      I am an AI/ML engineer with experience across healthcare, finance, and enterprise automation.
+      My work focuses on building useful AI applications with strong backend engineering, reliable retrieval,
+      responsible AI practices, and production-ready deployment.
+    </p>
+
+    <div class="about-grid">
+      <div class="card">
+        <h3>AI Engineering</h3>
+        <p>Building LLM-powered applications, agents, RAG systems, and workflow automation tools.</p>
+      </div>
+      <div class="card">
+        <h3>Backend Systems</h3>
+        <p>Developing APIs, microservices, and scalable Python services using FastAPI and Flask.</p>
+      </div>
+      <div class="card">
+        <h3>Data Platforms</h3>
+        <p>Designing pipelines with SQL, PySpark, Kafka, Airflow, and cloud data platforms.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <h2 class="section-title">Technical Skills</h2>
+    <p class="section-subtitle">Tools and technologies I use to build AI, ML, backend, and data solutions.</p>
+
+    <div class="skills-grid">
+      <div class="card">
+        <h3>AI / GenAI</h3>
+        <div class="skills-list">
+          <span class="skill-tag">LLMs</span>
+          <span class="skill-tag">RAG</span>
+          <span class="skill-tag">LangChain</span>
+          <span class="skill-tag">LangGraph</span>
+          <span class="skill-tag">OpenAI</span>
+          <span class="skill-tag">Azure OpenAI</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Backend</h3>
+        <div class="skills-list">
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">FastAPI</span>
+          <span class="skill-tag">Flask</span>
+          <span class="skill-tag">REST APIs</span>
+          <span class="skill-tag">Docker</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Data / Cloud</h3>
+        <div class="skills-list">
+          <span class="skill-tag">SQL</span>
+          <span class="skill-tag">PySpark</span>
+          <span class="skill-tag">Airflow</span>
+          <span class="skill-tag">AWS</span>
+          <span class="skill-tag">Azure</span>
+          <span class="skill-tag">GCP</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <h2 class="section-title">Projects</h2>
+    <p class="section-subtitle">A few project examples you can showcase to recruiters and hiring managers.</p>
+
+    <div class="project-grid">
+      <div class="card">
+        <h3>AI Resume Tailoring Agent</h3>
+        <p>
+          Built an agent that analyzes job descriptions and generates tailored resumes using LLMs,
+          prompt engineering, skill matching, and document generation.
+        </p>
+        <div class="skills-list">
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">LLMs</span>
+          <span class="skill-tag">Prompt Engineering</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>RAG Document Q&A System</h3>
+        <p>
+          Developed a retrieval-augmented generation pipeline for document search, summarization,
+          question answering, and context-grounded responses.
+        </p>
+        <div class="skills-list">
+          <span class="skill-tag">RAG</span>
+          <span class="skill-tag">FAISS</span>
+          <span class="skill-tag">LangChain</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Finance GenAI Assistant</h3>
+        <p>
+          Designed an AI assistant concept for financial document analysis, reporting automation,
+          KPI summarization, and decision support.
+        </p>
+        <div class="skills-list">
+          <span class="skill-tag">Finance AI</span>
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">LLM Workflows</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience">
+    <h2 class="section-title">Experience</h2>
+    <p class="section-subtitle">Professional experience focused on AI, ML, GenAI, backend engineering, and data platforms.</p>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <h3>Senior GenAI / ML Engineer</h3>
+        <span>UnitedHealth Group | Apr 2025 - Present</span>
+        <p>Building healthcare-focused GenAI solutions, RAG workflows, document intelligence systems, and production AI services.</p>
+      </div>
+
+      <div class="timeline-item">
+        <h3>Senior Data AI / ML Engineer</h3>
+        <span>Broadridge Financial | Jun 2023 - Mar 2025</span>
+        <p>Worked on data pipelines, AI/ML workflows, financial data platforms, and automation solutions.</p>
+      </div>
+
+      <div class="timeline-item">
+        <h3>Senior Data Machine Learning Engineer</h3>
+        <span>Kroger | Jan 2021 - May 2023</span>
+        <p>Built ML and data engineering solutions for analytics, forecasting, automation, and enterprise data processing.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2 class="section-title">Contact</h2>
+    <div class="contact-box">
+      <p>Interested in discussing AI, ML, GenAI, backend engineering, or data engineering opportunities?</p>
+      <div class="buttons" style="justify-content: center;">
+        <a href="mailto:dprakashreddy333@gmail.com" class="btn btn-primary">Email Me</a>
+        <a href="tel:2037188960" class="btn btn-outline">Call Me</a>
+        <a href="https://www.linkedin.com/in/prakashreddydev/" target="_blank" class="btn btn-outline">LinkedIn</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2026 Prakash Reddy. Built with HTML, CSS, and JavaScript.</p>
+  </footer>
+
+  <script>
+    const menuBtn = document.getElementById('menuBtn');
+    const navLinks = document.getElementById('navLinks');
+
+    menuBtn.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
+
+    const links = document.querySelectorAll('.nav-links a');
+    links.forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+      });
+    });
+  </script>
+</body>
+</html>
