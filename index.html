@@ -221,94 +221,231 @@
     .section-transition {
       position: fixed;
       inset: 0;
-      display: grid;
-      place-items: center;
+      display: block;
       pointer-events: none;
       background: rgba(3, 10, 22, 0);
       opacity: 0;
       z-index: 2500;
       overflow: hidden;
+      perspective: 1200px;
+    }
+
+    .section-transition::before,
+    .section-transition::after {
+      content: "";
+      position: absolute;
+      pointer-events: none;
+    }
+
+    .section-transition::before {
+      inset: -18%;
+      background:
+        linear-gradient(115deg, rgba(3, 10, 22, 0.98), rgba(14, 116, 144, 0.76), rgba(34, 197, 94, 0.36), rgba(3, 10, 22, 0.98));
+      transform: translateX(-110%) skewX(-10deg);
+      filter: blur(0);
+    }
+
+    .section-transition::after {
+      width: min(48vw, 420px);
+      height: min(48vw, 420px);
+      left: 50%;
+      top: 50%;
+      border-radius: 50%;
+      border: 1px solid rgba(125, 211, 252, 0.24);
+      background: radial-gradient(circle, rgba(125, 211, 252, 0.2), transparent 64%);
+      transform: translate(-50%, -50%) scale(0.42);
+      opacity: 0;
     }
 
     .section-transition-card {
-      position: relative;
-      width: min(680px, calc(100% - 36px));
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: min(440px, calc(100% - 40px));
       min-width: 0;
-      height: min(380px, calc(100% - 110px));
-      border-radius: 26px;
+      height: 220px;
+      border-radius: 24px;
       border: 1px solid rgba(125, 211, 252, 0.24);
       background:
-        linear-gradient(135deg, rgba(56, 189, 248, 0.12), transparent 40%),
-        rgba(3, 10, 22, 0.76);
+        radial-gradient(circle at top left, rgba(125, 211, 252, 0.18), transparent 36%),
+        linear-gradient(135deg, rgba(3, 10, 22, 0.88), rgba(8, 47, 73, 0.76));
       backdrop-filter: blur(24px);
-      box-shadow: 0 0 90px rgba(0, 0, 0, 0.54);
-      transform: translateY(24px) scale(0.92) rotate(-1deg);
+      box-shadow: 0 32px 90px rgba(0, 0, 0, 0.52);
+      transform: translate(-50%, -50%) scale(0.82) rotateX(16deg);
+      opacity: 0;
       overflow: hidden;
     }
 
+    .section-transition-card::before,
     .section-transition-card::after {
       content: "";
       position: absolute;
+      pointer-events: none;
+    }
+
+    .section-transition-card::before {
       inset: 0;
+      border-radius: inherit;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      background:
+        linear-gradient(90deg, rgba(125, 211, 252, 0.16) 1px, transparent 1px),
+        linear-gradient(rgba(125, 211, 252, 0.12) 1px, transparent 1px);
+      background-size: 28px 28px;
+      opacity: 0.28;
+    }
+
+    .section-transition-card::after {
+      inset: -20%;
       background: linear-gradient(110deg, transparent, rgba(255, 255, 255, 0.18), transparent);
       transform: translateX(-120%);
     }
 
-    .section-transition-title {
+    .transition-symbol {
       position: absolute;
-      left: 8%;
-      right: 8%;
-      bottom: 11%;
-      color: #f8fafc;
-      font-size: 34px;
-      line-height: 1.1;
-      text-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
-      transform: none;
-      opacity: 0;
-      animation: sketchTextIn 0.36s ease 0.32s forwards;
+      left: 32px;
+      right: 32px;
+      top: 34px;
+      height: 86px;
+      border-radius: 18px;
+      background:
+        linear-gradient(90deg, rgba(125, 211, 252, 0.16), transparent),
+        rgba(2, 6, 23, 0.34);
+      overflow: hidden;
     }
 
-    .transition-sketch {
+    .transition-symbol::before,
+    .transition-symbol::after {
+      content: "";
       position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
+      pointer-events: none;
+    }
+
+    .transition-symbol::before {
+      left: 24px;
+      top: 22px;
+      width: 62%;
+      height: 8px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #7dd3fc, #22c55e, #facc15);
+      box-shadow: 0 0 22px rgba(125, 211, 252, 0.38);
+      transform-origin: left;
+      transform: scaleX(0);
+    }
+
+    .transition-symbol::after {
+      left: 24px;
+      top: 48px;
+      width: 44%;
+      height: 8px;
+      border-radius: 999px;
+      background: rgba(219, 234, 254, 0.62);
+      transform-origin: left;
+      transform: scaleX(0);
+    }
+
+    .section-transition-title {
+      position: absolute;
+      left: 34px;
+      right: 34px;
+      bottom: 30px;
+      color: #f8fafc;
+      font-size: 30px;
+      line-height: 1.1;
+      text-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+      transform: translateY(16px);
+      opacity: 0;
     }
 
     .section-transition.is-active {
-      animation: sketchBackdrop 0.92s cubic-bezier(0.16, 1, 0.3, 1) both;
+      animation: transitionBackdrop 0.96s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    .section-transition.is-active::before {
+      animation: transitionCurtain 0.96s cubic-bezier(0.76, 0, 0.24, 1) both;
+    }
+
+    .section-transition.is-active::after {
+      animation: transitionPulse 0.92s cubic-bezier(0.16, 1, 0.3, 1) both;
     }
 
     .section-transition.is-active .section-transition-card {
-      animation: sketchTransitionCard 0.92s cubic-bezier(0.16, 1, 0.3, 1) both;
+      animation: transitionCardPop 0.92s cubic-bezier(0.16, 1, 0.3, 1) both;
     }
 
     .section-transition.is-active .section-transition-card::after {
       animation: transitionShine 0.62s ease-out 0.22s both;
     }
 
-    .section-transition.is-active .transition-sketch .sketch-path {
-      animation: sketchDraw 0.62s ease forwards;
+    .section-transition.is-active .transition-symbol::before {
+      animation: symbolLine 0.42s ease 0.18s forwards;
     }
 
-    .section-transition.is-active .transition-sketch .sketch-path:nth-child(2) { animation-delay: 0.08s; }
-    .section-transition.is-active .transition-sketch .sketch-path:nth-child(3) { animation-delay: 0.16s; }
-    .section-transition.is-active .transition-sketch .sketch-path:nth-child(4) { animation-delay: 0.24s; }
-    .section-transition.is-active .transition-sketch .sketch-path:nth-child(5) { animation-delay: 0.32s; }
-    .section-transition.is-active .transition-sketch .sketch-path:nth-child(6) { animation-delay: 0.4s; }
+    .section-transition.is-active .transition-symbol::after {
+      animation: symbolLine 0.42s ease 0.28s forwards;
+    }
 
-    .section-transition.to-home .section-transition-card,
-    .section-transition.to-about .section-transition-card,
-    .section-transition.to-skills .section-transition-card,
-    .section-transition.to-projects .section-transition-card,
-    .section-transition.to-experience .section-transition-card,
-    .section-transition.to-contact .section-transition-card {
-      width: min(680px, calc(100% - 36px));
-      min-width: 0;
-      height: min(380px, calc(100% - 110px));
-      margin: auto;
-      border-radius: 26px;
-      transform: translateY(24px) scale(0.92) rotate(-1deg);
+    .section-transition.is-active .section-transition-title {
+      animation: transitionTitle 0.44s ease 0.24s forwards;
+    }
+
+    .section-transition.to-home::before {
+      background:
+        radial-gradient(circle at 50% 50%, rgba(125, 211, 252, 0.55), transparent 36%),
+        linear-gradient(115deg, rgba(3, 10, 22, 0.98), rgba(14, 116, 144, 0.76), rgba(3, 10, 22, 0.98));
+    }
+
+    .section-transition.to-about::before {
+      background:
+        linear-gradient(90deg, rgba(3, 10, 22, 0.98), rgba(34, 197, 94, 0.42), rgba(125, 211, 252, 0.54), rgba(3, 10, 22, 0.98));
+      transform: translateY(-110%) skewY(-4deg);
+    }
+
+    .section-transition.to-skills::before {
+      background:
+        linear-gradient(135deg, rgba(3, 10, 22, 0.98), rgba(14, 165, 233, 0.5), rgba(34, 197, 94, 0.44), rgba(3, 10, 22, 0.98));
+      background-size: 180% 180%;
+    }
+
+    .section-transition.to-projects::before {
+      background:
+        linear-gradient(125deg, rgba(3, 10, 22, 0.98) 0 25%, rgba(125, 211, 252, 0.5) 25% 45%, rgba(250, 204, 21, 0.4) 45% 62%, rgba(3, 10, 22, 0.98) 62%);
+    }
+
+    .section-transition.to-experience::before {
+      background:
+        linear-gradient(90deg, rgba(3, 10, 22, 0.98), rgba(125, 211, 252, 0.38), rgba(3, 10, 22, 0.98)),
+        repeating-linear-gradient(90deg, transparent 0 68px, rgba(250, 204, 21, 0.16) 68px 70px);
+    }
+
+    .section-transition.to-contact::before {
+      background:
+        radial-gradient(circle at 70% 40%, rgba(34, 197, 94, 0.58), transparent 28%),
+        radial-gradient(circle at 34% 62%, rgba(125, 211, 252, 0.46), transparent 30%),
+        rgba(3, 10, 22, 0.96);
+    }
+
+    .section-transition.to-home.is-active .section-transition-card {
+      animation-name: transitionPortalCard;
+    }
+
+    .section-transition.to-about.is-active .section-transition-card {
+      animation-name: transitionSlideCard;
+    }
+
+    .section-transition.to-skills.is-active .section-transition-card {
+      animation-name: transitionFlipCard;
+    }
+
+    .section-transition.to-projects.is-active .section-transition-card {
+      animation-name: transitionStackCard;
+    }
+
+    .section-transition.to-experience.is-active .section-transition-card {
+      animation-name: transitionTimelineCard;
+    }
+
+    .section-transition.to-contact.is-active .section-transition-card {
+      animation-name: transitionSignalCard;
     }
 
     section.section-arrive#home {
@@ -1332,14 +1469,34 @@
     }
 
     .reveal {
+      position: relative;
       opacity: 0;
       transform: translateY(28px) scale(0.98);
+      filter: blur(8px);
+      transition:
+        opacity 0.72s ease,
+        transform 0.72s cubic-bezier(0.16, 1, 0.3, 1),
+        filter 0.72s ease,
+        clip-path 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+        border-color 0.3s ease,
+        box-shadow 0.3s ease,
+        background 0.3s ease,
+        color 0.3s ease;
       transition-delay: var(--reveal-delay, 0s);
+    }
+
+    .reveal:not(.timeline-item) {
+      clip-path: inset(0 100% 0 0 round 18px);
     }
 
     .reveal.is-visible {
       opacity: 1;
       transform: translateY(0) scale(1);
+      filter: blur(0);
+    }
+
+    .reveal:not(.timeline-item).is-visible {
+      clip-path: inset(0 0 0 0 round 18px);
     }
 
     .timeline-item.reveal {
@@ -1348,6 +1505,125 @@
 
     .timeline-item.reveal.is-visible {
       transform: translateX(0);
+    }
+
+    .write-line {
+      display: block;
+      opacity: 0;
+      transform: translateY(10px);
+      clip-path: inset(0 100% 0 0);
+    }
+
+    .project-eyebrow.write-line,
+    .skill-tag.write-line {
+      display: inline-block;
+    }
+
+    .reveal.is-visible .write-line,
+    .write-line.reveal.is-visible {
+      animation: writtenLine 0.82s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation-delay: calc(var(--reveal-delay, 0s) + var(--line-delay, 0s) + 0.06s);
+    }
+
+    .reveal.is-visible .skill-tag {
+      animation: writtenTag 0.48s cubic-bezier(0.16, 1, 0.3, 1) both;
+      animation-delay: calc(var(--reveal-delay, 0s) + var(--line-delay, 0s) + 0.12s);
+    }
+
+    .ink-runner {
+      position: absolute;
+      top: 12%;
+      bottom: 12%;
+      left: 0;
+      width: 2px;
+      border-radius: 999px;
+      background: linear-gradient(180deg, transparent, #fde68a, #7dd3fc, transparent);
+      box-shadow: 0 0 18px rgba(125, 211, 252, 0.58);
+      opacity: 0;
+      pointer-events: none;
+      z-index: 6;
+    }
+
+    .reveal.is-visible > .ink-runner {
+      animation: inkRunner 0.92s cubic-bezier(0.16, 1, 0.3, 1) both;
+      animation-delay: var(--reveal-delay, 0s);
+    }
+
+    .box-draw {
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 7;
+    }
+
+    .box-draw span {
+      position: absolute;
+      display: block;
+      background: linear-gradient(90deg, rgba(125, 211, 252, 0.95), rgba(250, 204, 21, 0.78));
+      box-shadow: 0 0 16px rgba(125, 211, 252, 0.38);
+    }
+
+    .box-draw .top,
+    .box-draw .bottom {
+      left: 0;
+      right: 0;
+      height: 1px;
+      transform: scaleX(0);
+    }
+
+    .box-draw .top {
+      top: 0;
+      transform-origin: left;
+    }
+
+    .box-draw .bottom {
+      bottom: 0;
+      transform-origin: right;
+    }
+
+    .box-draw .right,
+    .box-draw .left {
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      transform: scaleY(0);
+      background: linear-gradient(180deg, rgba(125, 211, 252, 0.92), rgba(250, 204, 21, 0.76));
+    }
+
+    .box-draw .right {
+      right: 0;
+      transform-origin: top;
+    }
+
+    .box-draw .left {
+      left: 0;
+      transform-origin: bottom;
+    }
+
+    .boxed-reveal.is-visible > .box-draw {
+      opacity: 1;
+    }
+
+    .boxed-reveal.is-visible > .box-draw .top {
+      animation: drawBoxX 0.32s ease forwards;
+      animation-delay: calc(var(--reveal-delay, 0s) + 0.08s);
+    }
+
+    .boxed-reveal.is-visible > .box-draw .right {
+      animation: drawBoxY 0.28s ease forwards;
+      animation-delay: calc(var(--reveal-delay, 0s) + 0.36s);
+    }
+
+    .boxed-reveal.is-visible > .box-draw .bottom {
+      animation: drawBoxX 0.32s ease forwards;
+      animation-delay: calc(var(--reveal-delay, 0s) + 0.58s);
+    }
+
+    .boxed-reveal.is-visible > .box-draw .left {
+      animation: drawBoxY 0.28s ease forwards;
+      animation-delay: calc(var(--reveal-delay, 0s) + 0.84s);
     }
 
     @keyframes heroTextIntro {
@@ -1646,9 +1922,9 @@
       }
 
       18%,
-      72% {
+      74% {
         opacity: 1;
-        background: rgba(3, 10, 22, 0.34);
+        background: rgba(3, 10, 22, 0.42);
       }
 
       100% {
@@ -1657,144 +1933,276 @@
       }
     }
 
-    @keyframes transitionCard {
+    @keyframes transitionCurtain {
       0% {
-        opacity: 1;
-        transform: translateX(-112%) skewX(-8deg);
-        filter: blur(0);
-      }
-
-      38%,
-      58% {
-        opacity: 1;
-        transform: translateX(0) skewX(-8deg);
-        filter: blur(0);
-      }
-
-      100% {
-        opacity: 1;
-        transform: translateX(116vw) skewX(-8deg);
-        filter: blur(0);
-      }
-    }
-
-    @keyframes transitionHome {
-      0% {
-        opacity: 1;
-        transform: translateY(-112%) skewY(-5deg);
-      }
-
-      42%,
-      58% {
-        opacity: 1;
-        transform: translateY(0) skewY(-5deg);
-      }
-
-      100% {
-        opacity: 1;
-        transform: translateY(112%) skewY(-5deg);
-      }
-    }
-
-    @keyframes transitionAbout {
-      0% {
-        opacity: 1;
-        transform: translateX(112%) skewX(8deg);
-      }
-
-      42%,
-      58% {
-        opacity: 1;
-        transform: translateX(0) skewX(8deg);
-      }
-
-      100% {
-        opacity: 1;
-        transform: translateX(-116vw) skewX(8deg);
-      }
-    }
-
-    @keyframes transitionSkills {
-      0% {
-        opacity: 1;
-        transform: translateY(112%);
-      }
-
-      42%,
-      58% {
-        opacity: 1;
-        transform: translateY(0);
-      }
-
-      100% {
-        opacity: 1;
-        transform: translateY(-112%);
-      }
-    }
-
-    @keyframes transitionProjects {
-      0% {
-        opacity: 0;
-        transform: scale(0.72);
-        filter: blur(12px);
-      }
-
-      36%,
-      58% {
-        opacity: 1;
-        transform: scale(1);
-        filter: blur(0);
-      }
-
-      100% {
-        opacity: 0;
-        transform: scale(1.18);
-        filter: blur(10px);
-      }
-    }
-
-    @keyframes transitionExperience {
-      0% {
-        opacity: 0;
-        transform: scaleY(0);
-      }
-
-      36%,
-      60% {
-        opacity: 1;
-        transform: scaleY(1);
-      }
-
-      100% {
-        opacity: 0;
-        transform: scaleY(1);
-      }
-    }
-
-    @keyframes transitionContact {
-      0% {
-        opacity: 0;
-        transform: translateY(36px) scale(0.72);
-        filter: blur(12px);
+        transform: translateX(-110%) skewX(-10deg);
       }
 
       38%,
       62% {
+        transform: translateX(0) skewX(-8deg);
+      }
+
+      100% {
+        transform: translateX(116vw) skewX(-8deg);
+      }
+    }
+
+    @keyframes transitionPulse {
+      0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.42);
+      }
+
+      38% {
+        opacity: 0.8;
+        transform: translate(-50%, -50%) scale(1);
+      }
+
+      100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(1.36);
+      }
+    }
+
+    @keyframes transitionCardPop {
+      0% {
+        opacity: 0;
+        transform: translate(-50%, -42%) scale(0.82) rotateX(16deg);
+        filter: blur(12px);
+      }
+
+      28%,
+      66% {
         opacity: 1;
-        transform: translateY(0) scale(1);
+        transform: translate(-50%, -50%) scale(1) rotateX(0);
         filter: blur(0);
       }
 
       100% {
         opacity: 0;
-        transform: translateY(-26px) scale(0.92);
+        transform: translate(-50%, -58%) scale(0.96) rotateX(-10deg);
         filter: blur(8px);
+      }
+    }
+
+    @keyframes transitionPortalCard {
+      0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.34) rotate(0);
+        border-radius: 50%;
+        filter: blur(14px);
+      }
+
+      34%,
+      68% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1) rotate(0);
+        border-radius: 24px;
+        filter: blur(0);
+      }
+
+      100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(1.22) rotate(4deg);
+        filter: blur(10px);
+      }
+    }
+
+    @keyframes transitionSlideCard {
+      0% {
+        opacity: 0;
+        transform: translate(-86%, -50%) scale(0.92);
+        filter: blur(10px);
+      }
+
+      34%,
+      66% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+        filter: blur(0);
+      }
+
+      100% {
+        opacity: 0;
+        transform: translate(-16%, -50%) scale(0.98);
+        filter: blur(8px);
+      }
+    }
+
+    @keyframes transitionFlipCard {
+      0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) rotateY(-72deg) scale(0.88);
+        filter: blur(12px);
+      }
+
+      36%,
+      66% {
+        opacity: 1;
+        transform: translate(-50%, -50%) rotateY(0) scale(1);
+        filter: blur(0);
+      }
+
+      100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) rotateY(54deg) scale(0.92);
+        filter: blur(10px);
+      }
+    }
+
+    @keyframes transitionStackCard {
+      0% {
+        opacity: 0;
+        transform: translate(-50%, -38%) scale(0.9) rotate(-8deg);
+        box-shadow:
+          -18px 18px 0 rgba(125, 211, 252, 0),
+          18px -18px 0 rgba(250, 204, 21, 0);
+      }
+
+      36%,
+      68% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1) rotate(0);
+        box-shadow:
+          -18px 18px 0 rgba(125, 211, 252, 0.09),
+          18px -18px 0 rgba(250, 204, 21, 0.08),
+          0 32px 90px rgba(0, 0, 0, 0.52);
+      }
+
+      100% {
+        opacity: 0;
+        transform: translate(-50%, -62%) scale(0.96) rotate(7deg);
+        box-shadow:
+          -18px 18px 0 rgba(125, 211, 252, 0),
+          18px -18px 0 rgba(250, 204, 21, 0);
+      }
+    }
+
+    @keyframes transitionTimelineCard {
+      0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scaleX(0.34) scaleY(0.92);
+        filter: blur(10px);
+      }
+
+      34%,
+      68% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scaleX(1) scaleY(1);
+        filter: blur(0);
+      }
+
+      100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scaleX(1.08) scaleY(0.86);
+        filter: blur(8px);
+      }
+    }
+
+    @keyframes transitionSignalCard {
+      0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.72);
+        box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+      }
+
+      34%,
+      68% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+        box-shadow:
+          0 0 0 18px rgba(34, 197, 94, 0.06),
+          0 0 0 42px rgba(125, 211, 252, 0.035),
+          0 32px 90px rgba(0, 0, 0, 0.52);
+      }
+
+      100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(1.18);
+        box-shadow: 0 0 0 72px rgba(34, 197, 94, 0);
+      }
+    }
+
+    @keyframes symbolLine {
+      to {
+        transform: scaleX(1);
+      }
+    }
+
+    @keyframes transitionTitle {
+      to {
+        opacity: 1;
+        transform: translateY(0);
       }
     }
 
     @keyframes transitionShine {
       to {
         transform: translateX(120%);
+      }
+    }
+
+    @keyframes writtenLine {
+      0% {
+        opacity: 0;
+        transform: translateY(10px);
+        clip-path: inset(0 100% 0 0);
+        filter: blur(5px);
+      }
+
+      18% {
+        opacity: 1;
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+        clip-path: inset(0 0 0 0);
+        filter: blur(0);
+      }
+    }
+
+    @keyframes writtenTag {
+      from {
+        opacity: 0;
+        transform: translateY(8px) scale(0.96);
+        filter: blur(4px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+      }
+    }
+
+    @keyframes inkRunner {
+      0% {
+        opacity: 0;
+        transform: translateX(0) scaleY(0.42);
+      }
+
+      18%,
+      76% {
+        opacity: 1;
+      }
+
+      100% {
+        opacity: 0;
+        transform: translateX(calc(var(--runner-width, 100%) - 2px)) scaleY(1);
+      }
+    }
+
+    @keyframes drawBoxX {
+      to {
+        transform: scaleX(1);
+      }
+    }
+
+    @keyframes drawBoxY {
+      to {
+        transform: scaleY(1);
       }
     }
 
@@ -1910,18 +2318,27 @@
       .page-shell,
       .section-transition,
       .section-transition-card,
+      .transition-symbol::before,
+      .transition-symbol::after,
       .reveal,
-      .reveal.is-visible {
+      .reveal.is-visible,
+      .write-line,
+      .ink-runner,
+      .box-draw,
+      .box-draw span {
         animation: none;
         opacity: 1;
         transform: none;
         filter: none;
+        clip-path: none;
       }
 
       .page-loader,
       .section-transition,
       .neural-canvas,
-      .cursor-glow {
+      .cursor-glow,
+      .ink-runner,
+      .box-draw {
         display: none;
       }
 
@@ -2065,14 +2482,7 @@
 
   <div class="section-transition" aria-hidden="true">
     <div class="section-transition-card">
-      <svg class="transition-sketch" viewBox="0 0 680 380" aria-hidden="true">
-        <path class="sketch-path accent" d="M78 64 H302" />
-        <path class="sketch-path" d="M78 106 H560" />
-        <path class="sketch-path soft" d="M78 146 H505" />
-        <path class="sketch-path" d="M78 198 H248 V302 H78 Z" />
-        <path class="sketch-path" d="M278 198 H448 V302 H278 Z" />
-        <path class="sketch-path" d="M478 198 H608 V302 H478 Z" />
-      </svg>
+      <div class="transition-symbol"></div>
       <div class="section-transition-title">Home</div>
     </div>
   </div>
@@ -2645,12 +3055,14 @@
       return header ? header.offsetHeight + 16 : 0;
     };
 
+    let revealSectionContent = () => {};
+
     const scrollToSection = target => {
       window.history.pushState(null, '', `#${target.id}`);
       setActiveNavLink(target.id);
 
       const placeSection = () => {
-        const offsetTop = target.getBoundingClientRect().top + window.scrollY - getHeaderOffset();
+        const offsetTop = target.offsetTop - getHeaderOffset();
         const scrollPosition = Math.max(offsetTop, 0);
 
         document.documentElement.scrollTop = scrollPosition;
@@ -2661,6 +3073,9 @@
       placeSection();
       window.setTimeout(placeSection, 40);
       window.setTimeout(placeSection, 120);
+      window.setTimeout(() => {
+        revealSectionContent(target);
+      }, motionSafe ? 180 : 0);
 
       target.classList.remove('section-arrive');
       void target.offsetWidth;
@@ -2791,18 +3206,90 @@
     }
 
     const revealElements = document.querySelectorAll('.section-title, .section-subtitle, .proof-item, .impact-tile, .card, .timeline-item, .contact-box');
+    const writtenTextElements = document.querySelectorAll([
+      '.section-title',
+      '.section-subtitle',
+      '.proof-value',
+      '.proof-label',
+      '.impact-tile strong',
+      '.impact-tile span',
+      '.card h3',
+      '.card p',
+      '.project-eyebrow',
+      '.project-features li',
+      '.timeline-item h3',
+      '.timeline-item span',
+      '.timeline-item p',
+      '.experience-focus h4',
+      '.experience-focus li',
+      '.contact-box > p'
+    ].join(', '));
+
+    const boxedRevealElements = document.querySelectorAll('.proof-item, .impact-tile, .card, .timeline-item, .contact-box');
+
+    const addInkRunner = element => {
+      if (element.querySelector(':scope > .ink-runner')) {
+        return;
+      }
+
+      const runner = document.createElement('span');
+      runner.className = 'ink-runner';
+      runner.setAttribute('aria-hidden', 'true');
+      element.appendChild(runner);
+    };
+
+    const addBoxDraw = element => {
+      if (element.querySelector(':scope > .box-draw')) {
+        return;
+      }
+
+      element.classList.add('boxed-reveal');
+
+      const boxDraw = document.createElement('span');
+      boxDraw.className = 'box-draw';
+      boxDraw.setAttribute('aria-hidden', 'true');
+      boxDraw.innerHTML = '<span class="top"></span><span class="right"></span><span class="bottom"></span><span class="left"></span>';
+      element.appendChild(boxDraw);
+    };
+
+    writtenTextElements.forEach(element => {
+      element.classList.add('write-line');
+    });
 
     revealElements.forEach(element => {
       element.classList.add('reveal');
+      addInkRunner(element);
     });
+
+    boxedRevealElements.forEach(addBoxDraw);
 
     document.querySelectorAll('section').forEach(section => {
       const sectionRevealElements = section.querySelectorAll('.reveal');
 
       sectionRevealElements.forEach((element, index) => {
         element.style.setProperty('--reveal-delay', `${Math.min(index * 0.06, 0.24)}s`);
+
+        element.querySelectorAll('.write-line, .skill-tag').forEach((child, childIndex) => {
+          child.style.setProperty('--line-delay', `${Math.min(childIndex * 0.045, 0.34)}s`);
+        });
       });
     });
+
+    revealSectionContent = section => {
+      if (!section) {
+        return;
+      }
+
+      section.querySelectorAll('.reveal').forEach((element, index) => {
+        if (element.classList.contains('is-visible')) {
+          return;
+        }
+
+        window.setTimeout(() => {
+          element.classList.add('is-visible');
+        }, motionSafe ? Math.min(index * 55, 260) : 0);
+      });
+    };
 
     if ('IntersectionObserver' in window) {
       const revealObserver = new IntersectionObserver((entries, observer) => {
@@ -2866,6 +3353,7 @@
 
       if (currentSection) {
         setActiveNavLink(currentSection.id);
+        revealSectionContent(currentSection);
       }
     };
 
@@ -2873,8 +3361,30 @@
       window.requestAnimationFrame(updateActiveSection);
     };
 
+    const alignInitialHash = () => {
+      if (!location.hash) {
+        return;
+      }
+
+      const target = document.getElementById(location.hash.slice(1));
+
+      if (!target) {
+        return;
+      }
+
+      window.setTimeout(() => {
+        const scrollPosition = Math.max(target.offsetTop - getHeaderOffset(), 0);
+        document.documentElement.scrollTop = scrollPosition;
+        document.body.scrollTop = scrollPosition;
+        window.scrollTo(0, scrollPosition);
+        revealSectionContent(target);
+        updateActiveSection();
+      }, motionSafe ? 1350 : 0);
+    };
+
     setActiveNavLink(location.hash ? location.hash.slice(1) : 'home');
     updateActiveSection();
+    alignInitialHash();
     window.addEventListener('scroll', queueActiveSectionUpdate, { passive: true });
     window.addEventListener('wheel', queueActiveSectionUpdate, { passive: true });
     window.addEventListener('touchmove', queueActiveSectionUpdate, { passive: true });
